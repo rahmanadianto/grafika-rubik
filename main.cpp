@@ -13,63 +13,63 @@ cube rubic[27];
 void setRubic() {
 	// Declare all front cube
 	rubic[0].setPoint(-10.0f, -10.0f, -10.0f);
-	rubic[0].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[0].setColor('r', 'h', 'b', 'h', 'h', 'p');
 	rubic[1].setPoint(-3.0f, -10.0f, -10.0f);
-	rubic[1].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[1].setColor('r', 'h', 'h', 'h', 'h', 'p');
 	rubic[2].setPoint(4.0f, -10.0f, -10.0f);
-	rubic[2].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[2].setColor('r', 'h', 'h', 'g', 'h', 'p');
 	rubic[3].setPoint(-10.0f, -3.0f, -10.0f);
-	rubic[3].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[3].setColor('r', 'h', 'b', 'h', 'h', 'h');
 	rubic[4].setPoint(-3.0f, -3.0f, -10.0f);
 	rubic[4].setColor('r', 'h', 'h', 'h', 'h', 'h');
 	rubic[5].setPoint(4.0f, -3.0f, -10.0f);
-	rubic[5].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[5].setColor('r', 'h', 'h', 'g', 'h', 'h');
 	rubic[6].setPoint(-10.0f, 4.0f, -10.0f);
-	rubic[6].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[6].setColor('r', 'h', 'b', 'h', 'y', 'h');
 	rubic[7].setPoint(-3.0f, 4.0f, -10.0f);
-	rubic[7].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[7].setColor('r', 'h', 'h', 'h', 'y', 'h');
 	rubic[8].setPoint(4.0f, 4.0f, -10.0f);
-	rubic[8].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[8].setColor('r', 'h', 'h', 'g', 'y', 'h');
 
 	// Declare all center cube
 	rubic[9].setPoint(-10.0f, -10.0f, -3.0f);
-	rubic[9].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[9].setColor('h', 'h', 'b', 'h', 'h', 'p');
 	rubic[10].setPoint(-3.0f, -10.0f, -3.0f);
-	rubic[10].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[10].setColor('h', 'h', 'h', 'h', 'h', 'p');
 	rubic[11].setPoint(4.0f, -10.0f, -3.0f);
-	rubic[11].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[11].setColor('h', 'h', 'h', 'g', 'h', 'p');
 	rubic[12].setPoint(-10.0f, -3.0f, -3.0f);
-	rubic[12].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[12].setColor('h', 'h', 'b', 'h', 'h', 'h');
 	rubic[13].setPoint(-3.0f, -3.0f, -3.0f);
-	rubic[13].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[13].setColor('h', 'h', 'h', 'h', 'h', 'h');
 	rubic[14].setPoint(4.0f, -3.0f, -3.0f);
-	rubic[14].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[14].setColor('h', 'h', 'h', 'g', 'h', 'h');
 	rubic[15].setPoint(-10.0f, 4.0f, -3.0f);
-	rubic[15].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[15].setColor('h', 'h', 'b', 'h', 'y', 'h');
 	rubic[16].setPoint(-3.0f, 4.0f, -3.0f);
-	rubic[16].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[16].setColor('h', 'h', 'h', 'h', 'y', 'h');
 	rubic[17].setPoint(4.0f, 4.0f, -3.0f);
-	rubic[17].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[17].setColor('h', 'h', 'h', 'g', 'y', 'h');
 
 	// Declare all back cube
 	rubic[18].setPoint(-10.0f, -10.0f, 4.0f);
-	rubic[18].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[18].setColor('h', 'o', 'b', 'h', 'h', 'p');
 	rubic[19].setPoint(-3.0f, -10.0f, 4.0f);
-	rubic[19].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[19].setColor('h', 'o', 'h', 'h', 'h', 'p');
 	rubic[20].setPoint(4.0f, -10.0f, 4.0f);
-	rubic[20].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[20].setColor('h', 'o', 'h', 'g', 'h', 'p');
 	rubic[21].setPoint(-10.0f, -3.0f, 4.0f);
-	rubic[21].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[21].setColor('h', 'o', 'b', 'h', 'h', 'h');
 	rubic[22].setPoint(-3.0f, -3.0f, 4.0f);
-	rubic[22].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[22].setColor('h', 'o', 'h', 'h', 'h', 'h');
 	rubic[23].setPoint(4.0f, -3.0f, 4.0f);
-	rubic[23].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[23].setColor('h', 'o', 'h', 'g', 'h', 'h');
 	rubic[24].setPoint(-10.0f, 4.0f, 4.0f);
-	rubic[24].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[24].setColor('h', 'o', 'b', 'h', 'y', 'h');
 	rubic[25].setPoint(-3.0f, 4.0f, 4.0f);
-	rubic[25].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[25].setColor('h', 'o', 'h', 'h', 'y', 'h');
 	rubic[26].setPoint(4.0f, 4.0f, 4.0f);
-	rubic[26].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[26].setColor('h', 'o', 'h', 'g', 'y', 'h');
 }
 
 //Define an error callback  
@@ -81,11 +81,8 @@ static void error_callback(int error, const char* description)
 
 void rotate_top() {
 	glLoadIdentity();
-	glTranslatef(1.5f, 0.0f, -6.0f);  // Move Right 3 Units, and back into the screen 6.0
-
-	//glTranslate(0, 1, 0);             // kita pindah pointer saat ini ke atas
-	glRotatef(angle, 1.0f, 0.0f, 0.0f);  // numpang naruh 'titik pusat rotasi'
-	glTranslated(0, -1, 0);            // kita balik lagi ke tempat semula, untuk menggambar polygon
+	glTranslatef(0.0f, 7.0f, 0.0f);
+	glRotatef(angle, 1.0f, 1.0f, 0.0f);
 
 	glColor3f(0.5f, 0.5f, 1.0f);
 	glBegin(GL_QUADS);
@@ -94,7 +91,7 @@ void rotate_top() {
 	glVertex3f(1.0f, -1.0f, 0.0f);
 	glVertex3f(-1.0f, -1.0f, 0.0f);
 	glEnd();
-	angle += 15;
+	//angle += 15;
 }
 
 //Define the key input callback  
@@ -102,8 +99,14 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-	else if (key == GLFW_KEY_T && action == GLFW_PRESS)
-		rotate_top();
+	/*else if (key == GLFW_KEY_T && action == GLFW_PRESS) {}
+		int goal = 90;
+		int degree_per_frame = 5;
+		int frame = goal / degree_per_frame;
+		for (int i = 0; i < frame; i++) {
+			angle += degree_per_frame;
+			DrawGLScene();
+		}*/
 }
 
 int main(void)
@@ -172,24 +175,17 @@ int main(void)
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Rotate axis
-		glRotatef(angle, 1, 1, 0.5);
-
 		// Draw rubic
 		for (int i = 0; i < 27; i++) {
+			glLoadIdentity();
+			glRotatef(45, 1, 1, 0.5);
 			rubic[i].draw();
 		}
-
-		//glLoadIdentity();
-		//glRotatef(angle, 1, 1, 0.5);
-		//f2.draw();
-		angle += 0.1f;
 
 		//Swap buffers  
 		glfwSwapBuffers(window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...  
 		glfwPollEvents();
-
 
 	} //Check if the ESC key had been pressed or if the window had been closed  
 	while (!glfwWindowShouldClose(window));
