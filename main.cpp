@@ -2,6 +2,75 @@
 #include <GLFW/glfw3.h>  
 #include <stdio.h>  
 #include <stdlib.h>  
+#include <gl/GLU.h>
+#include <gl/freeglut.h>
+#include <gl/glut.h>
+#include "cube.h"
+
+float angle = 0.0f;
+cube rubic[27];
+
+void setRubic() {
+	// Declare all front cube
+	rubic[0].setPoint(-10.0f, -10.0f, -10.0f);
+	rubic[0].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[1].setPoint(-3.0f, -10.0f, -10.0f);
+	rubic[1].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[2].setPoint(4.0f, -10.0f, -10.0f);
+	rubic[2].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[3].setPoint(-10.0f, -3.0f, -10.0f);
+	rubic[3].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[4].setPoint(-3.0f, -3.0f, -10.0f);
+	rubic[4].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[5].setPoint(4.0f, -3.0f, -10.0f);
+	rubic[5].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[6].setPoint(-10.0f, 4.0f, -10.0f);
+	rubic[6].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[7].setPoint(-3.0f, 4.0f, -10.0f);
+	rubic[7].setColor('r', 'h', 'h', 'h', 'h', 'h');
+	rubic[8].setPoint(4.0f, 4.0f, -10.0f);
+	rubic[8].setColor('r', 'h', 'h', 'h', 'h', 'h');
+
+	// Declare all center cube
+	rubic[9].setPoint(-10.0f, -10.0f, -3.0f);
+	rubic[9].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[10].setPoint(-3.0f, -10.0f, -3.0f);
+	rubic[10].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[11].setPoint(4.0f, -10.0f, -3.0f);
+	rubic[11].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[12].setPoint(-10.0f, -3.0f, -3.0f);
+	rubic[12].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[13].setPoint(-3.0f, -3.0f, -3.0f);
+	rubic[13].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[14].setPoint(4.0f, -3.0f, -3.0f);
+	rubic[14].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[15].setPoint(-10.0f, 4.0f, -3.0f);
+	rubic[15].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[16].setPoint(-3.0f, 4.0f, -3.0f);
+	rubic[16].setColor('b', 'b', 'b', 'b', 'b', 'b');
+	rubic[17].setPoint(4.0f, 4.0f, -3.0f);
+	rubic[17].setColor('b', 'b', 'b', 'b', 'b', 'b');
+
+	// Declare all back cube
+	rubic[18].setPoint(-10.0f, -10.0f, 4.0f);
+	rubic[18].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[19].setPoint(-3.0f, -10.0f, 4.0f);
+	rubic[19].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[20].setPoint(4.0f, -10.0f, 4.0f);
+	rubic[20].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[21].setPoint(-10.0f, -3.0f, 4.0f);
+	rubic[21].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[22].setPoint(-3.0f, -3.0f, 4.0f);
+	rubic[22].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[23].setPoint(4.0f, -3.0f, 4.0f);
+	rubic[23].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[24].setPoint(-10.0f, 4.0f, 4.0f);
+	rubic[24].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[25].setPoint(-3.0f, 4.0f, 4.0f);
+	rubic[25].setColor('g', 'g', 'g', 'g', 'g', 'g');
+	rubic[26].setPoint(4.0f, 4.0f, 4.0f);
+	rubic[26].setColor('g', 'g', 'g', 'g', 'g', 'g');
+}
 
 //Define an error callback  
 static void error_callback(int error, const char* description)
@@ -10,459 +79,31 @@ static void error_callback(int error, const char* description)
 	_fgetchar();
 }
 
+void rotate_top() {
+	glLoadIdentity();
+	glTranslatef(1.5f, 0.0f, -6.0f);  // Move Right 3 Units, and back into the screen 6.0
+
+	//glTranslate(0, 1, 0);             // kita pindah pointer saat ini ke atas
+	glRotatef(angle, 1.0f, 0.0f, 0.0f);  // numpang naruh 'titik pusat rotasi'
+	glTranslated(0, -1, 0);            // kita balik lagi ke tempat semula, untuk menggambar polygon
+
+	glColor3f(0.5f, 0.5f, 1.0f);
+	glBegin(GL_QUADS);
+	glVertex3f(-1.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glEnd();
+	angle += 15;
+}
+
 //Define the key input callback  
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
-// Point & color for rubic
-static const GLfloat front_side[] = {
-	// Color
-	1.0f,  0.0f,  0.0f,
-	// Bottom left
-	-10.0f, -10.0f, -11.0f,
-	-4.0f, -10.0f, -11.0f,
-	-4.0f, -4.0f, -11.0f,
-	-10.0f, -4.0f, -11.0f,
-	// Bottom center
-	-3.0f, -10.0f, -11.0f,
-	3.0f, -10.0f, -11.0f,
-	3.0f, -4.0f, -11.0f,
-	-3.0f, -4.0f, -11.0f,
-	// Bottom right
-	4.0f, -10.0f, -11.0f,
-	10.0f, -10.0f, -11.0f,
-	10.0f, -4.0f, -11.0f,
-	4.0f, -4.0f, -11.0f,
-	// Center left
-	-10.0f, -3.0f, -11.0f,
-	-4.0f, -3.0f, -11.0f,
-	-4.0f, 3.0f, -11.0f,
-	-10.0f, 3.0f, -11.0f,
-	// Center center
-	-3.0f, -3.0f, -11.0f,
-	3.0f, -3.0f, -11.0f,
-	3.0f, 3.0f, -11.0f,
-	-3.0f, 3.0f, -11.0f,
-	// Center right
-	4.0f, -3.0f, -11.0f,
-	10.0f, -3.0f, -11.0f,
-	10.0f, 3.0f, -11.0f,
-	4.0f, 3.0f, -11.0f,
-	// Top left
-	-10.0f, 10.0f, -11.0f,
-	-4.0f, 10.0f, -11.0f,
-	-4.0f, 4.0f, -11.0f,
-	-10.0f, 4.0f, -11.0f,
-	// Top center
-	-3.0f, 10.0f, -11.0f,
-	3.0f, 10.0f, -11.0f,
-	3.0f, 4.0f, -11.0f,
-	-3.0f, 4.0f, -11.0f,
-	// Top right
-	4.0f, 10.0f, -11.0f,
-	10.0f, 10.0f, -11.0f,
-	10.0f, 4.0f, -11.0f,
-	4.0f, 4.0f, -11.0f
-};
-static const GLfloat back_side[] = {
-	// Color
-	1.0f,  0.5f,  0.25f,
-	// Bottom left
-	-10.0f, -10.0f, 11.0f,
-	-4.0f, -10.0f, 11.0f,
-	-4.0f, -4.0f, 11.0f,
-	-10.0f, -4.0f, 11.0f,
-	// Bottom center
-	-3.0f, -10.0f, 11.0f,
-	3.0f, -10.0f, 11.0f,
-	3.0f, -4.0f, 11.0f,
-	-3.0f, -4.0f, 11.0f,
-	// Bottom right
-	4.0f, -10.0f, 11.0f,
-	10.0f, -10.0f, 11.0f,
-	10.0f, -4.0f, 11.0f,
-	4.0f, -4.0f, 11.0f,
-	// Center left
-	-10.0f, -3.0f, 11.0f,
-	-4.0f, -3.0f, 11.0f,
-	-4.0f, 3.0f, 11.0f,
-	-10.0f, 3.0f, 11.0f,
-	// Center center
-	-3.0f, -3.0f, 11.0f,
-	3.0f, -3.0f, 11.0f,
-	3.0f, 3.0f, 11.0f,
-	-3.0f, 3.0f, 11.0f,
-	// Center right
-	4.0f, -3.0f, 11.0f,
-	10.0f, -3.0f, 11.0f,
-	10.0f, 3.0f, 11.0f,
-	4.0f, 3.0f, 11.0f,
-	// Top left
-	-10.0f, 10.0f, 11.0f,
-	-4.0f, 10.0f, 11.0f,
-	-4.0f, 4.0f, 11.0f,
-	-10.0f, 4.0f, 11.0f,
-	// Top center
-	-3.0f, 10.0f, 11.0f,
-	3.0f, 10.0f, 11.0f,
-	3.0f, 4.0f, 11.0f,
-	-3.0f, 4.0f, 11.0f,
-	// Top right
-	4.0f, 10.0f, 11.0f,
-	10.0f, 10.0f, 11.0f,
-	10.0f, 4.0f, 11.0f,
-	4.0f, 4.0f, 11.0f
-};
-static const GLfloat left_side[] = {
-	// Color
-	1.0f,  1.0f,  1.0f,
-	// Bottom left
-	-11.0f, -10.0f, 10.0f,
-	-11.0f, -10.0f, 4.0f,
-	-11.0f, -4.0f, 4.0f,
-	-11.0f, -4.0f, 10.0f,
-	// Bottom center
-	-11.0f, -10.0f, 3.0f,
-	-11.0f, -10.0f, -3.0f,
-	-11.0f, -4.0f, -3.0f,
-	-11.0f, -4.0f, 3.0f,
-	// Bottom right
-	-11.0f, -10.0f, -4.0f,
-	-11.0f, -10.0f, -10.0f,
-	-11.0f, -4.0f, -10.0f,
-	-11.0f, -4.0f, -4.0f,
-	// Center left
-	-11.0f, -3.0f, 10.0f,
-	-11.0f, -3.0f, 4.0f,
-	-11.0f, 3.0f, 4.0f,
-	-11.0f, 3.0f, 10.0f,
-	// Center center
-	-11.0f, -3.0f, 3.0f,
-	-11.0f, -3.0f,  -3.0f,
-	-11.0f, 3.0f, -3.0f,
-	-11.0f, 3.0f,3.0f,
-	// Center right
-	-11.0f, -3.0f, -4.0f,
-	-11.0f, -3.0f,  -10.0f,
-	-11.0f, 3.0f, -10.0f,
-	-11.0f, 3.0f,-4.0f,
-	// Top left
-	-11.0f, 4.0f, 10.0f,
-	-11.0f, 4.0f, 4.0f,
-	-11.0f, 10.0f, 4.0f,
-	-11.0f, 10.0f, 10.0f,
-	// Top center
-	-11.0f, 4.0f, 3.0f,
-	-11.0f, 4.0f,  -3.0f,
-	-11.0f, 10.0f, -3.0f,
-	-11.0f, 10.0f,3.0f,
-	// Top right
-	-11.0f, 4.0f, -4.0f,
-	-11.0f, 4.0f,  -10.0f,
-	-11.0f, 10.0f, -10.0f,
-	-11.0f, 10.0f,-4.0f
-};
-static const GLfloat right_side[] = {
-	// Color
-	1.0f,  0.75f,  0.25f,
-	// Bottom left
-	11.0f, -10.0f, 10.0f,
-	11.0f, -10.0f, 4.0f,
-	11.0f, -4.0f, 4.0f,
-	11.0f, -4.0f, 10.0f,
-	// Bottom center
-	11.0f, -10.0f, 3.0f,
-	11.0f, -10.0f, -3.0f,
-	11.0f, -4.0f, -3.0f,
-	11.0f, -4.0f, 3.0f,
-	// Bottom right
-	11.0f, -10.0f, -4.0f,
-	11.0f, -10.0f, -10.0f,
-	11.0f, -4.0f, -10.0f,
-	11.0f, -4.0f, -4.0f,
-	// Center left
-	11.0f, -3.0f, 10.0f,
-	11.0f, -3.0f, 4.0f,
-	11.0f, 3.0f, 4.0f,
-	11.0f, 3.0f, 10.0f,
-	// Center center
-	11.0f, -3.0f, 3.0f,
-	11.0f, -3.0f,  -3.0f,
-	11.0f, 3.0f, -3.0f,
-	11.0f, 3.0f,3.0f,
-	// Center right
-	11.0f, -3.0f, -4.0f,
-	11.0f, -3.0f,  -10.0f,
-	11.0f, 3.0f, -10.0f,
-	11.0f, 3.0f,-4.0f,
-	// Top left
-	11.0f, 4.0f, 10.0f,
-	11.0f, 4.0f, 4.0f,
-	11.0f, 10.0f, 4.0f,
-	11.0f, 10.0f, 10.0f,
-	// Top center
-	11.0f, 4.0f, 3.0f,
-	11.0f, 4.0f,  -3.0f,
-	11.0f, 10.0f, -3.0f,
-	11.0f, 10.0f,3.0f,
-	// Top right
-	11.0f, 4.0f, -4.0f,
-	11.0f, 4.0f,  -10.0f,
-	11.0f, 10.0f, -10.0f,
-	11.0f, 10.0f,-4.0f
-};
-static const GLfloat top_side[] = {
-	// Color
-	0.0f,  0.0f,  1.0f,
-	// Bottom left
-	-10.0f, 11.0f, -10.0f,
-	-4.0f, 11.0f, -10.0f,
-	-4.0f, 11.0f, -4.0f,
-	-10.0f, 11.0f, -4.0f,
-	// Bottom center
-	-3.0f, 11.0f, -10.0f,
-	3.0f, 11.0f, -10.0f,
-	3.0f, 11.0f, -4.0f,
-	-3.0f, 11.0f, -4.0f,
-	// Bottom right
-	4.0f, 11.0f, -10.0f,
-	10.0f, 11.0f, -10.0f,
-	10.0f, 11.0f, -4.0f,
-	4.0f, 11.0f, -4.0f,
-	// Center left
-	-10.0f, 11.0f, -3.0f,
-	-4.0f, 11.0f, -3.0f,
-	-4.0f, 11.0f, 3.0f,
-	-10.0f, 11.0f, 3.0f,
-	// Center center
-	-3.0f, 11.0f, -3.0f,
-	3.0f, 11.0f, -3.0f,
-	3.0f, 11.0f, 3.0f,
-	-3.0f, 11.0f, 3.0f,
-	// Center right
-	4.0f, 11.0f, -3.0f,
-	10.0f, 11.0f, -3.0f,
-	10.0f, 11.0f, 3.0f,
-	4.0f, 11.0f, 3.0f,
-	// Top left
-	-10.0f, 11.0f, 4.0f,
-	-4.0f, 11.0f, 4.0f,
-	-4.0f, 11.0f, 10.0f,
-	-10.0f, 11.0f, 10.0f,
-	// Top center
-	-3.0f, 11.0f, 4.0f,
-	3.0f, 11.0f, 4.0f,
-	3.0f, 11.0f, 10.0f,
-	-3.0f, 11.0f, 10.0f,
-	// Top right
-	4.0f, 11.0f, 4.0f,
-	10.0f, 11.0f, 4.0f,
-	10.0f, 11.0f, 10.0f,
-	4.0f, 11.0f, 10.0f
-};
-static const GLfloat bottom_side[] = {
-	// Color
-	0.0f,  1.0f,  0.0f,
-	// Bottom left
-	-10.0f, -11.0f, -10.0f,
-	-4.0f, -11.0f, -10.0f,
-	-4.0f, -11.0f, -4.0f,
-	-10.0f, -11.0f, -4.0f,
-	// Bottom center
-	-3.0f, -11.0f, -10.0f,
-	3.0f, -11.0f, -10.0f,
-	3.0f, -11.0f, -4.0f,
-	-3.0f, -11.0f, -4.0f,
-	// Bottom right
-	4.0f, -11.0f, -10.0f,
-	10.0f, -11.0f, -10.0f,
-	10.0f, -11.0f, -4.0f,
-	4.0f, -11.0f, -4.0f,
-	// Center left
-	-10.0f, -11.0f, -3.0f,
-	-4.0f, -11.0f, -3.0f,
-	-4.0f, -11.0f, 3.0f,
-	-10.0f, -11.0f, 3.0f,
-	// Center center
-	-3.0f, -11.0f, -3.0f,
-	3.0f, -11.0f, -3.0f,
-	3.0f, -11.0f, 3.0f,
-	-3.0f, -11.0f, 3.0f,
-	// Center right
-	4.0f, -11.0f, -3.0f,
-	10.0f, -11.0f, -3.0f,
-	10.0f, -11.0f, 3.0f,
-	4.0f, -11.0f, 3.0f,
-	// Top left
-	-10.0f, -11.0f, 4.0f,
-	-4.0f, -11.0f, 4.0f,
-	-4.0f, -11.0f, 10.0f,
-	-10.0f, -11.0f, 10.0f,
-	// Top center
-	-3.0f, -11.0f, 4.0f,
-	3.0f, -11.0f, 4.0f,
-	3.0f, -11.0f, 10.0f,
-	-3.0f, -11.0f, 10.0f,
-	// Top right
-	4.0f, -11.0f, 4.0f,
-	10.0f, -11.0f, 4.0f,
-	10.0f, -11.0f, 10.0f,
-	4.0f, -11.0f, 10.0f
-};
-
-void draw_frame() {
-	// Gambar frame hitam di keenam sisi rubik
-
-	// Frame depan dan belakang
-	float z = 11.0f;
-	for (int j = 0; j < 2; j++) {
-		float y = -11.0f;
-		for (int i = 0; i < 4; i++) {
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 0);
-			glVertex3f(-11.0f, y, z);
-			glVertex3f(11.0f, y, z);
-			glVertex3f(11.0f, y + 1, z);
-			glVertex3f(-11.0f, y + 1, z);
-			glEnd();
-			y += 7;
-		}
-		float x = -11.0f;
-		for (int i = 0; i < 4; i++) {
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 0);
-			glVertex3f(x, -11.0f, z);
-			glVertex3f(x + 1, -11.0f, z);
-			glVertex3f(x + 1, 11.0f, z);
-			glVertex3f(x, 11.0f, z);
-			glEnd();
-			x += 7;
-		}
-		z = z * -1;
-	}
-
-	// Frame kanan dan kiri
-	float x = 11.0f;
-	for (int j = 0; j < 2; j++) {
-		float y = -11.0f;
-		for (int i = 0; i < 4; i++) {
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 0);
-			glVertex3f(x, y, -11.0f);
-			glVertex3f(x, y, 11.0f);
-			glVertex3f(x, y + 1, 11.0f);
-			glVertex3f(x, y + 1, -11.0f);
-			glEnd();
-			y += 7;
-		}
-		float z = -11.0f;
-		for (int i = 0; i < 4; i++) {
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 0);
-			glVertex3f(x, -11.0f, z);
-			glVertex3f(x, -11.0f, z+1);
-			glVertex3f(x, 11.0f, z+1);
-			glVertex3f(x, 11.0f, z);
-			glEnd();
-			z += 7;
-		}
-		x = x * -1;
-	}
-
-	// Frame atas dan bawah
-	float y = 11.0f;
-	for (int j = 0; j < 2; j++) {
-		float x = -11.0f;
-		for (int i = 0; i < 4; i++) {
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 0);
-			glVertex3f(x, y, -11.0f);
-			glVertex3f(x+1, y, -11.0f);
-			glVertex3f(x+1, y, 11.0f);
-			glVertex3f(x, y, 11.0f);
-			glEnd();
-			x += 7;
-		}
-		float z = -11.0f;
-		for (int i = 0; i < 4; i++) {
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 0);
-			glVertex3f(-11.0f, y, z);
-			glVertex3f(11.0f, y, z);
-			glVertex3f(11.0f, y, z+1);
-			glVertex3f(-11.0f, y, z+1);
-			glEnd();
-			z += 7;
-		}
-		y = y * -1;
-	}
-}
-
-void draw_rubic() {
-	draw_frame();
-	// Draw front
-	for (int i = 3; i < 111; i+=12) {
-		glBegin(GL_QUADS);
-		glColor3f(front_side[0], front_side[1], front_side[2]);
-		glVertex3f(front_side[i], front_side[i+1], front_side[i+2]);
-		glVertex3f(front_side[i+3], front_side[i+4], front_side[i+5]);
-		glVertex3f(front_side[i+6], front_side[i+7], front_side[i+8]);
-		glVertex3f(front_side[i+9], front_side[i+10], front_side[i+11]);
-		glEnd();
-	}
-	// Draw back
-	for (int i = 3; i < 111; i += 12) {
-		glBegin(GL_QUADS);
-		glColor3f(back_side[0], back_side[1], back_side[2]);
-		glVertex3f(back_side[i], back_side[i + 1], back_side[i + 2]);
-		glVertex3f(back_side[i + 3], back_side[i + 4], back_side[i + 5]);
-		glVertex3f(back_side[i + 6], back_side[i + 7], back_side[i + 8]);
-		glVertex3f(back_side[i + 9], back_side[i + 10], back_side[i + 11]);
-		glEnd();
-	}
-	// Draw left
-	for (int i = 3; i < 111; i += 12) {
-		glBegin(GL_QUADS);
-		glColor3f(left_side[0], left_side[1], left_side[2]);
-		glVertex3f(left_side[i], left_side[i + 1], left_side[i + 2]);
-		glVertex3f(left_side[i + 3], left_side[i + 4], left_side[i + 5]);
-		glVertex3f(left_side[i + 6], left_side[i + 7], left_side[i + 8]);
-		glVertex3f(left_side[i + 9], left_side[i + 10], left_side[i + 11]);
-		glEnd();
-	}
-	// Draw right
-	for (int i = 3; i < 111; i += 12) {
-		glBegin(GL_QUADS);
-		glColor3f(right_side[0], right_side[1], right_side[2]);
-		glVertex3f(right_side[i], right_side[i + 1], right_side[i + 2]);
-		glVertex3f(right_side[i + 3], right_side[i + 4], right_side[i + 5]);
-		glVertex3f(right_side[i + 6], right_side[i + 7], right_side[i + 8]);
-		glVertex3f(right_side[i + 9], right_side[i + 10], right_side[i + 11]);
-		glEnd();
-	}
-	// Draw top
-	for (int i = 3; i < 111; i += 12) {
-		glBegin(GL_QUADS);
-		glColor3f(top_side[0], top_side[1], top_side[2]);
-		glVertex3f(top_side[i], top_side[i + 1], top_side[i + 2]);
-		glVertex3f(top_side[i + 3], top_side[i + 4], top_side[i + 5]);
-		glVertex3f(top_side[i + 6], top_side[i + 7], top_side[i + 8]);
-		glVertex3f(top_side[i + 9], top_side[i + 10], top_side[i + 11]);
-		glEnd();
-	}
-	// Draw bottom
-	for (int i = 3; i < 111; i += 12) {
-		glBegin(GL_QUADS);
-		glColor3f(bottom_side[0], bottom_side[1], bottom_side[2]);
-		glVertex3f(bottom_side[i], bottom_side[i + 1], bottom_side[i + 2]);
-		glVertex3f(bottom_side[i + 3], bottom_side[i + 4], bottom_side[i + 5]);
-		glVertex3f(bottom_side[i + 6], bottom_side[i + 7], bottom_side[i + 8]);
-		glVertex3f(bottom_side[i + 9], bottom_side[i + 10], bottom_side[i + 11]);
-		glEnd();
-	}
+	else if (key == GLFW_KEY_T && action == GLFW_PRESS)
+		rotate_top();
 }
 
 int main(void)
@@ -512,7 +153,7 @@ int main(void)
 	// Enable depth
 	glEnable(GL_DEPTH_TEST);
 
-	float angle = 0.0f;
+	setRubic();
 
 	//Main Loop  
 	do
@@ -527,16 +168,22 @@ int main(void)
 		glOrtho(-25.f, 25.f, -25.f, 25.f, -25.f, 25.f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-
+		
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Rotate axis
 		glRotatef(angle, 1, 1, 0.5);
-		angle += 0.01f;
 
 		// Draw rubic
-		draw_rubic();
+		for (int i = 0; i < 27; i++) {
+			rubic[i].draw();
+		}
+
+		//glLoadIdentity();
+		//glRotatef(angle, 1, 1, 0.5);
+		//f2.draw();
+		angle += 0.1f;
 
 		//Swap buffers  
 		glfwSwapBuffers(window);
